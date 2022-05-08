@@ -19,7 +19,7 @@ const Wrap = styled.div`
   background: #1b222d;
   width: 100%;
   position: relative;
-  padding: 20px 100px;
+  padding: 50px 100px;
   display: flex;
   justify-content: space-between;
 `

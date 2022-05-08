@@ -5,11 +5,16 @@ function BasicLayout({ children }) {
   return (
     <Wrap>
       <Header />
-      {children}
+      <Content>{children}</Content>
       <Footer />
     </Wrap>
   )
 }
+
+const Content = styled.div`
+  min-height: 500px;
+  padding: 20px 50px;
+`
 
 const Wrap = styled.section`
   width: 100%;
