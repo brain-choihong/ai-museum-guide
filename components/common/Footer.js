@@ -4,7 +4,7 @@ function Footer() {
   return (
     <Wrap>
       <Logo>Logo</Logo>
-      <Text>© 2022, All Rights Reserved - AI Studio Inc.</Text>
+      <Text>© 2022, All Rights Reserved - AI Studio</Text>
       <Text>v1.1.1 - 2022.5.8</Text>
     </Wrap>
   )
