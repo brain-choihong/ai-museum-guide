@@ -5,7 +5,7 @@ function Header() {
     <Wrap>
       <HeaderMenu>
         <li>
-          <Link href="">Logo</Link>
+          <Link href="/">Logo</Link>
         </li>
         <li>
           <Link href="/detail">Detail</Link>
