@@ -1,3 +1,9 @@
+import MovieGenerator from "../components/test/MovieGenerator.js";
+
 export default function Home() {
-  return <div>hi</div>
+  return (
+    <div>
+      <MovieGenerator />
+    </div>
+  );
 }
