@@ -33,35 +33,9 @@ export default async (req, res) => {
           message: error.message,
         });
       }
-    case "PUT":
-      await Collectible.findByIdAndUpdate(id, { ...req.body, updateAt: Date.now() }, (err) => {
-        if (err) {
-          return res.status(400).json({
-            success: false,
-            message: err,
-          });
-        } else {
-          return res.status(200).json({
-            success: true,
-          });
-        }
-      });
-  case "DELETE":
-    await Collectible.findByIdAndDelete(id, (err) => {
-      if (err) {
-        return res.status(400).json({
-          success: false,
-          message: err,
-        });
-      } else {
-        return res.status(200).json({
-          success: true,
-        });
-      }
-    });
 
     default:
-      res.setHeader("Allow", ["GET", "POST", "PUT", "DELETE"]);
+      res.setHeader("Allow", ["GET", "POST"]);
       return res.status(405).json({ success: false }).end(`Method ${method} Not Allowed`);
   }
 };
