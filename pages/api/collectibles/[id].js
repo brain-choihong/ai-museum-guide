@@ -23,7 +23,7 @@ export default async (req, res) => {
         });
       }
     case "PUT":
-      await Collectible.findByIdAndUpdate(id, { ...req.body, updateAt: Date.now() }, (err) => {
+      await Collectible.findByIdAndUpdate(id, { ...JSON.parse(req.body), updateAt: Date.now() }, (err) => {
         if (err) {
           return res.status(400).json({
             success: false,

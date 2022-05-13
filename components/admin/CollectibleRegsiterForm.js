@@ -5,14 +5,13 @@ import Spinner from "components/common/Spinner";
 import PreviewVideo from "./PreviewVideo";
 import styled from "styled-components";
 
-function CollectibleRegisterForm() {
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [videoUrl, setVideoUrl] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+function CollectibleRegisterForm(props) {
+  const [title, setTitle] = useState(props.title);
+  const [desc, setDesc] = useState(props.desc);
+  const [videoUrl, setVideoUrl] = useState(props.video);
+  const [imageUrl, setImageUrl] = useState(props.img);
   const [makeVideoProgress, setMakeVideoProgress] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isShownPreview, setIsShownPreview] = useState(false);
   const [isCompletedForm, setIsCompletedFrom] = useState(true);
 
   const descEl = useRef(null);
@@ -27,13 +26,9 @@ function CollectibleRegisterForm() {
     setDesc(e.target.value);
   };
 
-  const previewBtnHandler = () => {
-    setIsShownPreview(!isShownPreview);
-  };
-
   const imageChangeHandler = (e) => {
     setImageUrl(e.target.value);
-  }
+  };
 
   const createAIGuideBtnHandler = async () => {
     if (desc === "") {
@@ -85,48 +80,82 @@ function CollectibleRegisterForm() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    if (title === "" || desc === "" || videoUrl === "" || imageUrl === "") {
+    if (isLoading) return;
+
+    console.log(title, desc, videoUrl, imageUrl);
+    if (
+      title === "" ||
+      desc === "" ||
+      videoUrl === "" ||
+      imageUrl === "" ||
+      title === undefined ||
+      desc === undefined ||
+      videoUrl === undefined ||
+      imageUrl === undefined
+    ) {
       setIsCompletedFrom(false);
       return;
     }
     setIsCompletedFrom(true);
 
-    try {
-      const response = await fetch("/api/collectibles", {
-        method: "POST",
-        body: JSON.stringify({ title: title, desc: desc, img: imageUrl, video: videoUrl }),
-      });
-      const responseData = await response.json();
-      if (responseData.success) router.push('/detail');
-    } catch (error) {
-      alert(error.message);
-      return;
+    if (props.type === "edit") {
+      try {
+        const response = await fetch(`/api/collectibles/${props.collectibleId}`, {
+          method: "PUT",
+          body: JSON.stringify({ title: title, desc: desc, img: imageUrl, video: videoUrl }),
+        });
+        const responseData = await response.json();
+        if (responseData.success) router.push(`/detail/${props.collectibleId}`);
+      } catch (error) {
+        alert(error.message);
+        return;
+      }
+    } else {
+      try {
+        const response = await fetch("/api/collectibles", {
+          method: "POST",
+          body: JSON.stringify({ title: title, desc: desc, img: imageUrl, video: videoUrl }),
+        });
+        const responseData = await response.json();
+        if (responseData.success) router.push("/detail");
+      } catch (error) {
+        alert(error.message);
+        return;
+      }
     }
   };
 
+  const pageTitle =
+    props.type === "edit" ? <h1>전시 소장품 수정하기</h1> : <h1>전시 소장품 등록하기</h1>;
+  const submitBtnText = props.type === "edit" ? "수정하기" : "등록하기";
+
   return (
     <>
-      <h1>전시 소장품 등록하기</h1>
+      {pageTitle}
       <form onSubmit={submitHandler}>
         <div>
           <label htmlFor="title">소장품 이름</label>
-          <input type="text" id="title" onChange={titleChangeHandler} />
+          <input type="text" id="title" onChange={titleChangeHandler} defaultValue={title} />
         </div>
         <div>
           <label htmlFor="description">설명</label>
-          <textarea id="description" onChange={descChangeHandler} ref={descEl} />
+          <textarea
+            id="description"
+            onChange={descChangeHandler}
+            ref={descEl}
+            defaultValue={desc}
+          />
           <button onClick={createAIGuideBtnHandler}>AI 가이드 영상 생성</button>
           {isLoading && <Spinner />}
           {isLoading && <p>생성중... {makeVideoProgress}</p>}
         </div>
-        <button onClick={previewBtnHandler}>미리보기</button>
-        {videoUrl && isShownPreview && <PreviewVideo url={videoUrl}></PreviewVideo>}
+        {videoUrl && <PreviewVideo url={videoUrl}></PreviewVideo>}
         <div>
           <label htmlFor="imgLink">이미지 링크</label>
-          <input type="text" id="imgLink" onChange={imageChangeHandler} />
+          <input type="text" id="imgLink" onChange={imageChangeHandler} defaultValue={imageUrl} />
         </div>
         <div>
-          <input type="submit" value="소장품 등록" />
+          <input type="submit" value={submitBtnText} />
           {!isCompletedForm && <ErrorMessage>모든 내용을 입력해주세요.</ErrorMessage>}
         </div>
       </form>
@@ -136,7 +165,6 @@ function CollectibleRegisterForm() {
 
 const ErrorMessage = styled.p`
   color: red;
-`
+`;
 
 export default CollectibleRegisterForm;
-
