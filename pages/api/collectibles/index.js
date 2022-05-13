@@ -23,7 +23,7 @@ export default async (req, res) => {
       }
     case "POST":
       try {
-        await Collectible.create(req.body);
+        await Collectible.create(JSON.parse(req.body));
         return res.status(201).json({
           success: true,
         });
