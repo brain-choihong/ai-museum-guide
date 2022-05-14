@@ -1,6 +1,8 @@
 import Link from "next/link";
 import styled from "styled-components";
 
+import DeleteButton from "components/common/DeleteButton";
+
 export async function getServerSideProps({ params }) {
   const response = await fetch(`http://localhost:3000/api/collectibles/${params.id}`);
   const responseData = await response.json();
@@ -29,6 +31,7 @@ export default function CollectibleDetail({ collectible }) {
       <Link href={`${collectible.id}/edit`}>
         <CustomButton>수정하기</CustomButton>
       </Link>
+      <DeleteButton collectibleId={collectible.id}>삭제하기</DeleteButton>
     </>
   );
 }
