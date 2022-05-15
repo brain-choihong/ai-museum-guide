@@ -29,7 +29,7 @@ function LoginForm() {
   return (
     <LoginContLayout>
       <Title>로그인</Title>
-      <form onSubmit={handleSumbit} method="get">
+      <div onClick={handleSumbit}>
         <IdInput
           type="text"
           placeholder="ID"
@@ -45,7 +45,7 @@ function LoginForm() {
           onChange={onChange}
         ></PassWordInput>
         <LoginButton>Login</LoginButton>
-      </form>
+      </div>
     </LoginContLayout>
   )
 }

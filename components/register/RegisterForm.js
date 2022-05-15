@@ -30,7 +30,7 @@ function RegisterForm() {
   return (
     <RegisterFormLayout>
       <Title>회원 가입</Title>
-      <form onSubmit={handleSubmit}>
+      <div onClick={handleSubmit}>
         <NameInput
           type="text"
           placeholder="이름을 입력하시오"
@@ -55,7 +55,7 @@ function RegisterForm() {
           onChange={onChange}
         ></PasswordInput>
         <RegisterButton>가입하기</RegisterButton>
-      </form>
+      </div>
     </RegisterFormLayout>
   )
 }
