@@ -1,5 +1,5 @@
-import UserSchema from 'models/User'
-import 'models/dbConnect'
+import UserSchema from '/models/User'
+import '/models/dbConnect'
 
 export default async (req, res) => {
   const { method } = req

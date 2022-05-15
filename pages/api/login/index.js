@@ -1,5 +1,5 @@
-import UserSchema from 'models/User'
-import 'models/dbConnect'
+import UserSchema from '/models/User'
+import '/models/dbConnect'
 const jwt = require('jsonwebtoken')
 
 export default async (req, res) => {
