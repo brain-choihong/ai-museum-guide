@@ -1,18 +1,21 @@
-import UserSchema from '/models/User'
+import User from 'models/User'
 import '/models/dbConnect'
 
 export default async (req, res) => {
   const { method } = req
+  console.log(method, 'method')
 
   switch (method) {
     case 'POST':
       try {
-        const users = await UserSchema.create(req.body)
-        return res.status(200).json({
+        console.log(req.body)
+        const users = await User.create(JSON.parse(req.body))
+        return res.status(201).json({
           success: true,
           data: users,
         })
       } catch (error) {
+        console.log(error.message)
         return res.status(400).json({
           success: false,
           message: error.message,

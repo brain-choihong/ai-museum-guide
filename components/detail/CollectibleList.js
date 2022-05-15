@@ -1,28 +1,13 @@
 import Link from 'next/link'
+
 import styled from 'styled-components'
-import collectibles from './collectibles'
 
 const CollectibleList = props => {
-  const defaultData = collectibles
   return (
     <Container>
       <PageTitle>조선 전시실 소장품</PageTitle>
       <ul>
         {props.data.map((d, i) => {
-          return (
-            <Item key={i}>
-              <Link href={`/detail/${d._id}`}>
-                <a>
-                  <ImageWrapper>
-                    <Image src={d.img} />
-                  </ImageWrapper>
-                  <Title>{d.title}</Title>
-                </a>
-              </Link>
-            </Item>
-          )
-        })}
-        {defaultData.map((d, i) => {
           return (
             <Item key={i}>
               <Link href={`/detail/${d._id}`}>

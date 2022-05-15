@@ -1,42 +1,44 @@
 import styled from 'styled-components'
 import useForm from 'hooks/useForm'
-import axios from 'axios'
+import { useRouter } from 'next/router'
 
 function RegisterForm() {
+  const router = useRouter()
   const [form, { onChange }] = useForm({
     email: '',
-    name: '',
+    nickname: '',
     password: '',
   })
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
-      axios({
+      const response = await fetch(`/api/register`, {
         method: 'POST',
-        url: '/api/register',
-        data: {
-          form: form,
-        },
-      }).then(response => {
-        if (response.status === 200) {
-          alert('register success')
-        } else {
-          alert('register failure')
-        }
+        body: JSON.stringify({
+          email: form.email,
+          nickname: form.nickname,
+          password: form.password,
+        }),
       })
+      const responseData = await response.json()
+      if (responseData.success) {
+        alert(`${form.nickname}님 회원가입을 환영합니다.`)
+        router.push(`/login`)
+      }
     } catch (e) {
+      console.log(e, 'e')
       alert('api error')
     }
   }
   return (
     <RegisterFormLayout>
       <Title>회원 가입</Title>
-      <div onClick={handleSubmit}>
+      <div>
         <NameInput
           type="text"
           placeholder="이름을 입력하시오"
           onChange={onChange}
-          name="name"
-          value={form.name}
+          name="nickname"
+          value={form.nickname}
         ></NameInput>
         <EmainInputWrap>
           <EmailInput
@@ -54,7 +56,7 @@ function RegisterForm() {
           value={form.password}
           onChange={onChange}
         ></PasswordInput>
-        <RegisterButton>가입하기</RegisterButton>
+        <RegisterButton onClick={handleSubmit}>가입하기</RegisterButton>
       </div>
     </RegisterFormLayout>
   )

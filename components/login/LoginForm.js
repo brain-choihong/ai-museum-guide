@@ -1,28 +1,26 @@
 import styled from 'styled-components'
 import useForm from 'hooks/useForm'
-import axios from 'axios'
-
 function LoginForm() {
   const [form, { onChange }] = useForm({
     email: '',
     password: '',
   })
-  const handleSumbit = () => {
+  const handleSumbit = async () => {
     try {
-      axios({
-        method: 'GET',
-        url: '/api/login',
-        data: {
-          form: form,
-        },
-      }).then(response => {
-        if (response.status === 200) {
-          alert('login success')
-        } else {
-          alert('login failure')
-        }
+      const response = await fetch(`/api/login`, {
+        method: 'POST',
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password,
+        }),
       })
+      const responseData = await response.json()
+      if (responseData.success) {
+        alert(`로그인 완료`)
+        router.push('/')
+      }
     } catch (e) {
+      console.log(e, 'e')
       alert('api error')
     }
   }
