@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 
+import styled from "styled-components";
+
 function DeleteButton(props) {
   const router = useRouter();
   const clickHandler = async (e) => {
@@ -8,6 +10,7 @@ function DeleteButton(props) {
     const isRemove = confirm("정말 삭제 하시겠습니까?");
     if (isRemove) {
       try {
+        console.log(props.collectibleId);
         const response = await fetch(`/api/collectibles/${props.collectibleId}`, {
           method: "DELETE",
         });
@@ -19,7 +22,16 @@ function DeleteButton(props) {
     }
   };
 
-  return <button onClick={clickHandler}>삭제하기</button>;
+  return <CustomButton onClick={clickHandler}>삭제하기</CustomButton>;
 }
+
+const CustomButton = styled.button`
+  margin-right: 2rem;
+  padding: 14px 16px;
+  border-radius: 7px;
+  color: #fff;
+  font-weight: 700;
+  background-color: blue;
+`;
 
 export default DeleteButton;
