@@ -1,7 +1,7 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { combineReducers } from '@reduxjs/toolkit'
-import login from './login'
-import register from './register'
+import login from './login/reducer'
+import register from './register/reducer'
 const rootReducer = (state, action) => {
   switch (action.type) {
     case HYDRATE:

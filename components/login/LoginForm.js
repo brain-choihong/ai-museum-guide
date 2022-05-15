@@ -1,11 +1,18 @@
 import styled from 'styled-components'
 import useForm from 'hooks/useForm'
+import asyncLoginActions from 'store/login/reducer'
+import { useDispatch } from 'react-redux'
+
 function LoginForm() {
+  const dispatch = useDispatch()
+
   const [form, { onChange }] = useForm({
     email: '',
     password: '',
   })
-  const handleSumbit = () => {}
+  const handleSumbit = () => {
+    dispatch(asyncLoginActions.request({ form }))
+  }
   return (
     <LoginContLayout>
       <Title>로그인</Title>

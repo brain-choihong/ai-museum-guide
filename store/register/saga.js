@@ -1,6 +1,6 @@
 import { takeLeading } from 'redux-saga/effects'
 import { asyncRegisterActions } from './reducer'
-import createRequestSaga from '../lib/createRequestSaga'
+import { createRequestSaga } from '../lib/createRequestSaga'
 const baseUrl = '/api/register'
 const registerRequestSaga = createRequestSaga(asyncRegisterActions, baseUrl)
 
