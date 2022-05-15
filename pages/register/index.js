@@ -1,4 +1,10 @@
+import RegisterForm from 'components/register/RegisterForm'
+
 function Register() {
-  return <>Register</>
+  return (
+    <>
+      <RegisterForm />
+    </>
+  )
 }
 export default Register

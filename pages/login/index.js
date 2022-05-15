@@ -1,4 +1,9 @@
+import LoginContLayout from 'components/login/LoginForm'
 function Login() {
-  return <>Login</>
+  return (
+    <>
+      <LoginContLayout />
+    </>
+  )
 }
 export default Login
