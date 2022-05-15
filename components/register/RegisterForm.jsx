@@ -3,7 +3,7 @@ const initForm = {
   email: '',
   uid: '',
   name: '',
-  pw: '',
+  password: '',
 }
 function RegisterForm() {
   const handleSubmit = () => {}
@@ -22,7 +22,7 @@ function RegisterForm() {
         <PasswordInput
           type="password"
           placeholder="비밀번호를 입력하시오"
-          name="pw"
+          name="password"
         ></PasswordInput>
         <RegisterButton>가입하기</RegisterButton>
       </form>

@@ -3,7 +3,7 @@ import useForm from 'hooks/useForm'
 function LoginForm() {
   const [form, { onChange }] = useForm({
     email: '',
-    pw: '',
+    password: '',
   })
   const handleSumbit = () => {}
   return (
@@ -19,9 +19,9 @@ function LoginForm() {
         ></IdInput>
         <PassWordInput
           type="password"
-          placeholder="password"
-          name="pw"
-          value={form.pw}
+          placeholder="Password"
+          name="password"
+          value={form.password}
           onChange={onChange}
         ></PassWordInput>
         <LoginButton>Login</LoginButton>

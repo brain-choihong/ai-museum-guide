@@ -1,7 +1,7 @@
 import { takeLeading } from 'redux-saga/effects'
 import { asyncLoginActions } from './reducer'
 import createRequestSaga from '../lib/createRequestSaga'
-const baseUrl = '/login'
+const baseUrl = '/api/login'
 const loginRequestSaga = createRequestSaga(asyncLoginActions, baseUrl)
 
 export default function* loginSaga() {
