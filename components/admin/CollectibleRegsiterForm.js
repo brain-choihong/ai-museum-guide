@@ -86,11 +86,9 @@ function CollectibleRegisterForm(props) {
     if (
       title === "" ||
       desc === "" ||
-      videoUrl === "" ||
       imageUrl === "" ||
       title === undefined ||
       desc === undefined ||
-      videoUrl === undefined ||
       imageUrl === undefined
     ) {
       setIsCompletedFrom(false);
