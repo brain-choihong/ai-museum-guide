@@ -1,28 +1,58 @@
 import styled from 'styled-components'
-const initForm = {
-  email: '',
-  uid: '',
-  name: '',
-  password: '',
-}
+import useForm from 'hooks/useForm'
+import axios from 'axios'
+
 function RegisterForm() {
-  const handleSubmit = () => {}
+  const [form, { onChange }] = useForm({
+    email: '',
+    name: '',
+    password: '',
+  })
+  const handleSubmit = () => {
+    try {
+      axios({
+        method: 'POST',
+        url: '/api/register',
+        data: {
+          form: form,
+        },
+      }).then(response => {
+        if (response.status === 200) {
+          alert('register success')
+        } else {
+          alert('register failure')
+        }
+      })
+    } catch (e) {
+      alert('api error')
+    }
+  }
   return (
     <RegisterFormLayout>
       <Title>회원 가입</Title>
       <form onSubmit={handleSubmit}>
-        <NameInput type="text" placeholder="이름을 입력하시오"></NameInput>
+        <NameInput
+          type="text"
+          placeholder="이름을 입력하시오"
+          onChange={onChange}
+          name="name"
+          value={form.name}
+        ></NameInput>
         <EmainInputWrap>
           <EmailInput
             type="text"
             placeholder="email을 입력하시오"
             name="email"
+            onChange={onChange}
+            value={form.email}
           ></EmailInput>
         </EmainInputWrap>
         <PasswordInput
           type="password"
           placeholder="비밀번호를 입력하시오"
           name="password"
+          value={form.password}
+          onChange={onChange}
         ></PasswordInput>
         <RegisterButton>가입하기</RegisterButton>
       </form>

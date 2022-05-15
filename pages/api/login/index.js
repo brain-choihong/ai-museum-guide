@@ -44,18 +44,18 @@ export default async (req, res) => {
           success: false,
         })
       }
-    case 'POST':
-      try {
-        const users = await UserSchema.create(req.body)
-        return res.status(200).json({
-          success: true,
-          data: users,
-        })
-      } catch (error) {
-        return res.status(400).json({
-          success: false,
-        })
-      }
+    // case 'POST':
+    //   try {
+    //     const users = await UserSchema.create(req.body)
+    //     return res.status(200).json({
+    //       success: true,
+    //       data: users,
+    //     })
+    //   } catch (error) {
+    //     return res.status(400).json({
+    //       success: false,
+    //     })
+    //   }
     default:
       res.setHeaders('Allow', ['GET', 'POST'])
       return res
