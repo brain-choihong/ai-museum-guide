@@ -1,8 +1,9 @@
-import Link from "next/link";
+import Link from 'next/link'
+import styled from 'styled-components'
+import collectibles from './collectibles'
 
-import styled from "styled-components";
-
-const CollectibleList = (props) => {
+const CollectibleList = props => {
+  const defaultData = collectibles
   return (
     <Container>
       <PageTitle>조선 전시실 소장품</PageTitle>
@@ -19,21 +20,35 @@ const CollectibleList = (props) => {
                 </a>
               </Link>
             </Item>
-          );
+          )
+        })}
+        {defaultData.map((d, i) => {
+          return (
+            <Item key={i}>
+              <Link href={`/detail/${d._id}`}>
+                <a>
+                  <ImageWrapper>
+                    <Image src={d.img} />
+                  </ImageWrapper>
+                  <Title>{d.title}</Title>
+                </a>
+              </Link>
+            </Item>
+          )
         })}
       </ul>
     </Container>
-  );
-};
+  )
+}
 
-export default CollectibleList;
+export default CollectibleList
 
 const Container = styled.div`
   width: 100%;
   max-width: 1000px;
 
   margin: 0 auto;
-`;
+`
 
 const PageTitle = styled.span`
   font-size: 20px;
@@ -41,7 +56,7 @@ const PageTitle = styled.span`
 
 const Title = styled.p`
   color: #838b91;
-`;
+`
 
 const ImageWrapper = styled.div`
   width: 229px;
@@ -49,7 +64,7 @@ const ImageWrapper = styled.div`
   border-radius: 8px;
 
   overflow: hidden;
-`;
+`
 
 const Image = styled.img`
   width: 229px;
@@ -60,10 +75,10 @@ const Image = styled.img`
   &:hover {
     transform: scale(1.05);
   }
-`;
+`
 
 const Item = styled.li`
   float: left;
   margin-right: 1.3rem;
   margin-bottom: 1rem;
-`;
+`
