@@ -163,8 +163,6 @@ function CollectibleRegisterForm(props) {
           <div>{videoUrl && <PreviewVideo url={videoUrl}></PreviewVideo>}</div>
         </CreateVideoWrapper>
 
-        
-
         <InputWrapper>
           <InputLable>
             <label htmlFor="imgLink">이미지 링크</label>
