@@ -49,3 +49,5 @@ $ yarn dev
 
 ## AI 박물관 가이드 페이지
 <img width="1514" alt="Screen Shot 2022-05-16 at 12 07 44 AM" src="https://user-images.githubusercontent.com/18342765/168479833-935d26d1-11d2-42b3-99b6-7d8ad92afaaa.png">
+
+프로젝트에 사용된 이미지 및 내용 출처: [국립중앙박물관](https://www.museum.go.kr/site/main/home)
