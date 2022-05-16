@@ -2,19 +2,21 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import { useCookies } from 'react-cookie'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
+
 function Header() {
   const [cookies, removeCookie] = useCookies(['rememberNumber'])
   const id = cookies?._dd_s
   const [cookie, setCookie] = useState(id)
-  const router = useRouter()
+  // const router = useRouter()
+
   useEffect(() => {
     setCookie(cookie)
   }, [cookie])
+
   const handleClick = () => {
     removeCookie('_dd_s')
     setCookie(undefined)
-    router.push('/')
   }
   return (
     <Wrap>
@@ -31,10 +33,12 @@ function Header() {
           {cookie ? (
             <p onClick={handleClick}>Logout</p>
           ) : (
-            <Link href="/login">Login</Link>
+            <>
+              <Link href="/login">Login</Link>
+              &nbsp; &nbsp;
+              <Link href="/register">Sign up</Link>
+            </>
           )}
-          &nbsp; &nbsp;
-          <Link href="/register">Sign up</Link>
         </li>
       </HeaderMenu>
     </Wrap>

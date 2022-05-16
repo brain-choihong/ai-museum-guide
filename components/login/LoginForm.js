@@ -19,7 +19,7 @@ function LoginForm() {
       const responseData = await response.json()
       if (responseData.success) {
         alert(`로그인 완료`)
-        router.push('/')
+        location.href = '/'
       }
     } catch (e) {
       console.log(e, 'e')
@@ -29,7 +29,7 @@ function LoginForm() {
   return (
     <LoginContLayout>
       <Title>로그인</Title>
-      <div onClick={handleSumbit}>
+      <div>
         <IdInput
           type="text"
           placeholder="ID"
@@ -44,7 +44,7 @@ function LoginForm() {
           value={form.password}
           onChange={onChange}
         ></PassWordInput>
-        <LoginButton>Login</LoginButton>
+        <LoginButton onClick={handleSumbit}>Login</LoginButton>
       </div>
     </LoginContLayout>
   )
