@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import Link from 'next/link'
+import { useCookies } from 'react-cookie'
 function Header() {
+  const [cookies] = useCookies(['rememberNumber'])
+  const id = cookies?._dd_s
   return (
     <Wrap>
       <HeaderMenu>
@@ -13,7 +16,11 @@ function Header() {
           <Link href="/admin">Create</Link>
         </li>
         <li>
-          <Link href="/login">Login</Link>
+          {id ? (
+            <Link href="/api/logout">Logout</Link>
+          ) : (
+            <Link href="/login">Login</Link>
+          )}
           &nbsp; &nbsp;
           <Link href="/register">Sign up</Link>
         </li>

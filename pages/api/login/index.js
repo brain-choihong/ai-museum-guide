@@ -1,8 +1,9 @@
 import User from 'models/User'
 import '/models/dbConnect'
-
 export default async (req, res) => {
+  console.log()
   const { method } = req
+
   const text = JSON.parse(req.body)
   switch (method) {
     case 'POST':
@@ -16,6 +17,10 @@ export default async (req, res) => {
               message: 'Unvalid email',
             })
           }
+          // res.body.cookie('x_auth', user.token).status(200).json({
+          //   success: true,
+          //   userId: user._id,
+          // })
           user.comparePassword(text.password, (err, isMatch) => {
             if (!isMatch)
               return res.status(200).json({
@@ -23,14 +28,13 @@ export default async (req, res) => {
                 message: 'Wrong password',
               })
             // 일치 시, 토큰 생성 후 쿠키에 저장
-            user.generateToken((err, user) => {
-              if (err) return res.status(400).send(err)
-              // 토큰을 쿠키에 저장
-              res.cookie('x_auth', user.token).status(200).json({
-                success: true,
-                userId: user._id,
-              })
-            })
+
+            // user.generateToken((err, user) => {
+            //   console.log(user, 'user-------------token')
+            //   if (err) return res.status(400).send(err)
+            // 토큰을 쿠키에 저장
+
+            // })
           })
         })
           .clone()
