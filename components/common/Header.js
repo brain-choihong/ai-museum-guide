@@ -25,9 +25,13 @@ function Header() {
           <Link href="/">Logo</Link>
         </li>
         <li>
-          <Link href="/detail">Detail</Link>
-          &nbsp; &nbsp;
-          <Link href="/admin">Create</Link>
+          {cookie && (
+            <>
+              <Link href="/detail">Detail</Link>
+              &nbsp; &nbsp;
+              <Link href="/admin">Create</Link>
+            </>
+          )}
         </li>
         <li>
           {cookie ? (
