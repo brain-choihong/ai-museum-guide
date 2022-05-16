@@ -1,9 +1,21 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useCookies } from 'react-cookie'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 function Header() {
-  const [cookies] = useCookies(['rememberNumber'])
+  const [cookies, removeCookie] = useCookies(['rememberNumber'])
   const id = cookies?._dd_s
+  const [cookie, setCookie] = useState(id)
+  const router = useRouter()
+  useEffect(() => {
+    setCookie(cookie)
+  }, [cookie])
+  const handleClick = () => {
+    removeCookie('_dd_s')
+    setCookie(undefined)
+    router.push('/')
+  }
   return (
     <Wrap>
       <HeaderMenu>
@@ -16,8 +28,8 @@ function Header() {
           <Link href="/admin">Create</Link>
         </li>
         <li>
-          {id ? (
-            <Link href="/api/logout">Logout</Link>
+          {cookie ? (
+            <p onClick={handleClick}>Logout</p>
           ) : (
             <Link href="/login">Login</Link>
           )}
@@ -36,6 +48,9 @@ const HeaderMenu = styled.ul`
   li {
     color: #ddd;
     padding: 10px;
+    p {
+      cursor: pointer;
+    }
   }
 `
 const Wrap = styled.div`
