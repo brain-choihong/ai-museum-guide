@@ -8,16 +8,17 @@ export default async (req, res) => {
     case 'POST':
       try {
         const users = await User.findOne({ email: text.email }, (err, user) => {
-          console.log(err)
+          console.log(user, 'user')
+
           if (!user) {
-            return res.json({
-              loginSuccess: false,
+            return res.status(200).json({
+              success: false,
               message: 'Unvalid email',
             })
           }
           user.comparePassword(text.password, (err, isMatch) => {
             if (!isMatch)
-              return res.json({
+              return res.status(200).json({
                 loginSuccess: false,
                 message: 'Wrong password',
               })
@@ -26,18 +27,22 @@ export default async (req, res) => {
               if (err) return res.status(400).send(err)
               // 토큰을 쿠키에 저장
               res.cookie('x_auth', user.token).status(200).json({
-                loginSuccess: true,
+                success: true,
                 userId: user._id,
               })
             })
           })
         })
+          .clone()
+          .catch(function (err) {
+            console.log(err)
+          })
         return res.status(200).json({
           success: true,
           data: users,
         })
       } catch (error) {
-        console.log(error, 'error')
+        console.log(error, 'error----------------')
         return res.status(400).json({
           success: false,
           message: error.message,

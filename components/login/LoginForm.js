@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import useForm from 'hooks/useForm'
+import { useRouter } from 'next/router'
 function LoginForm() {
+  const router = useRouter()
   const [form, { onChange }] = useForm({
     email: '',
     password: '',
