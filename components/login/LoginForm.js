@@ -17,9 +17,12 @@ function LoginForm() {
         }),
       })
       const responseData = await response.json()
+      
       if (responseData.success) {
-        alert(`로그인 완료`)
-        location.href = '/'
+        localStorage.setItem('loginUser', JSON.stringify(responseData.data));
+        location.href = '/detail'
+      } else {
+        alert('이메일, 패스워드를 확인해주세요.')
       }
     } catch (e) {
       console.log(e, 'e')

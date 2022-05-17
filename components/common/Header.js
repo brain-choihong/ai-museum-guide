@@ -11,12 +11,15 @@ function Header() {
   // const router = useRouter()
 
   useEffect(() => {
-    setCookie(cookie)
-  }, [cookie])
+    const loginUser = localStorage.getItem('loginUser');
+    setCookie(loginUser)
+  }, [])
 
   const handleClick = () => {
-    removeCookie('_dd_s')
+    // removeCookie('_dd_s')
+    localStorage.removeItem('loginUser');
     setCookie(undefined)
+    location.href = '/login'
   }
   return (
     <Wrap>
