@@ -23,25 +23,24 @@ export default async (req, res) => {
         });
       }
     case "PUT":
-      await Collectible.findByIdAndUpdate(
-        id,
-        { ...JSON.parse(req.body), updateAt: Date.now() },
-        (err) => {
-          if (err) {
-            return res.status(400).json({
-              success: false,
-              message: err,
-            });
-          } else {
-            return res.status(200).json({
-              success: true,
-            });
-          }
-        }
-      );
+      try {
+        await Collectible.findByIdAndUpdate(
+          id,
+          { ...JSON.parse(req.body), updateAt: Date.now() }
+        );
+        return res.status(200).json({
+          success: true,
+        });
+      } catch (error) {
+        console.log(error.message)
+        return res.status(400).json({
+          success: false,
+          message: error.message,
+        });
+      }
     case "DELETE":
       try {
-        await Collectible.deleteOne({_id: id});
+        await Collectible.deleteOne({ _id: id });
         return res.status(200).json({
           success: true,
         });

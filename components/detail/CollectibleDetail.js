@@ -2,8 +2,18 @@ import Link from "next/link";
 import styled from "styled-components";
 
 import DeleteButton from "components/common/DeleteButton";
+import { useEffect, useState } from "react";
 
 const CollectibleDetail = (props) => {
+  const [videoUrl, setVideoUrl] = useState(props.data.video)
+  const [isVideoUrl, setIsVideoUrl] = useState(false)
+
+  useEffect(() => {
+    if (videoUrl != '') {
+      setIsVideoUrl(true);
+    }
+  }, [])
+
   return (
     <Container>
       <Title>{props.data.title}</Title>
@@ -11,12 +21,12 @@ const CollectibleDetail = (props) => {
         <Image src={props.data.img} />
       </ImageSection>
       <DescSection>
-        <Description>{props.data.desc}</Description>
-        <VideoDscription>
+        <Description isVideoUrl>{props.data.desc}</Description>
+        {isVideoUrl && <VideoDscription>
           <CustomVideo width="240" height="400" controls>
-            <source src={props.data.video} type="video/mp4" />
+            <source src={videoUrl} type="video/mp4" />
           </CustomVideo>
-        </VideoDscription>
+        </VideoDscription>}
       </DescSection>
       <ButtonSection>
         <Link href={`${props.id}/edit`}>
@@ -60,7 +70,7 @@ const DescSection = styled.div`
 `;
 
 const Description = styled.p`
-  width: 50%;
+  width: ${props => props.videUrl ? '50%' : '100%'};
   font-size: 16px;
 `;
 
