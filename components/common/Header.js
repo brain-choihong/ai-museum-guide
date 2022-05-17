@@ -11,13 +11,13 @@ function Header() {
   // const router = useRouter()
 
   useEffect(() => {
-    const loginUser = localStorage.getItem('loginUser');
+    const loginUser = localStorage.getItem('loginUser')
     setCookie(loginUser)
   }, [])
 
   const handleClick = () => {
     // removeCookie('_dd_s')
-    localStorage.removeItem('loginUser');
+    localStorage.removeItem('loginUser')
     setCookie(undefined)
     location.href = '/login'
   }
@@ -25,7 +25,7 @@ function Header() {
     <Wrap>
       <HeaderMenu>
         <li>
-          <Link href="/">Logo</Link>
+          <Link href="/">AI 박물관 가이드</Link>
         </li>
         <li>
           {cookie && (

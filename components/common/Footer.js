@@ -3,7 +3,7 @@ import styled from 'styled-components'
 function Footer() {
   return (
     <Wrap>
-      <Logo>Logo</Logo>
+      <Logo>AI 박물관 가이드</Logo>
       <Text>© 2022, All Rights Reserved - AI Studio</Text>
       <Text>v1.1.1 - 2022.5.8</Text>
     </Wrap>
