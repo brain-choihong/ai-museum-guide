@@ -12,6 +12,7 @@ function CollectibleRegisterForm(props) {
   const [imageUrl, setImageUrl] = useState(props.img);
   const [makeVideoProgress, setMakeVideoProgress] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isClickedVideoDelete, setIsClickedVideoDelete] = useState(false);
   const [isCompletedForm, setIsCompletedFrom] = useState(true);
 
   const descEl = useRef(null);
@@ -64,7 +65,7 @@ function CollectibleRegisterForm(props) {
             body: JSON.stringify({ token: responseData.data.token, key: responseData.data.key }),
           });
           responseData = await response.json();
-          
+
           if (responseData.data.hasOwnProperty("video")) {
             clearInterval(timer);
             setVideoUrl(responseData.data.video);
@@ -79,10 +80,19 @@ function CollectibleRegisterForm(props) {
     }
   };
 
+  const deleteVideoHandler = () => {
+    setIsClickedVideoDelete(true);
+    setVideoUrl("");
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
     if (isLoading) return;
+    if (isClickedVideoDelete) {
+      setIsClickedVideoDelete(false);
+      return;
+    }
 
     console.log(title, desc, videoUrl, imageUrl);
     if (
@@ -157,10 +167,17 @@ function CollectibleRegisterForm(props) {
         </InputWrapper>
 
         <CreateVideoWrapper>
-          <CreateVideoButton onClick={createAIGuideBtnHandler}>AI 가이드 영상 생성</CreateVideoButton>
+          <CreateVideoButton onClick={createAIGuideBtnHandler}>
+            AI 가이드 영상 생성
+          </CreateVideoButton>
           {isLoading && <Spinner />}
           {isLoading && <p>생성중... {makeVideoProgress}</p>}
-          <div>{videoUrl && <PreviewVideo url={videoUrl}></PreviewVideo>}</div>
+          {!isLoading && videoUrl && (
+            <PreviewVideoWrapper>
+              <PreviewVideo url={videoUrl}></PreviewVideo>
+              <DeleteVideoButton onClick={deleteVideoHandler}>X</DeleteVideoButton>
+            </PreviewVideoWrapper>
+          )}
         </CreateVideoWrapper>
 
         <InputWrapper>
@@ -206,7 +223,15 @@ const CreateVideoButton = styled.button`
   background-color: blue;
   height: 4rem;
   width: 6rem;
-`
+`;
+
+const PreviewVideoWrapper = styled.div`
+  position: relative;
+`;
+
+const DeleteVideoButton = styled.button`
+  position: absolute;
+`;
 
 const InputLable = styled.div`
   width: 40%;
@@ -245,7 +270,7 @@ const CreateButton = styled.input`
   border-radius: 7px;
   margin: 20px auto 0 auto;
   display: block;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 export default CollectibleRegisterForm;
